@@ -1,5 +1,8 @@
 package hu.ak_akademia.myiigh.db.prepstatementwriter;
 
-public interface PreparedStatementWriter {
+import java.sql.PreparedStatement;
 
+public interface PreparedStatementWriter<P> {
+
+	void write(PreparedStatement preparedStatement);
 }
