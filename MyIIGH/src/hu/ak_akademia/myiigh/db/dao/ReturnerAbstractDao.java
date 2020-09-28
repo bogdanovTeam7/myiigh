@@ -5,34 +5,25 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import hu.ak_akademia.myiigh.Constants;
-import hu.ak_akademia.myiigh.IIGHRuntimeException;
 import hu.ak_akademia.myiigh.db.prepstatementwriter.PreparedStatementWriter;
 import hu.ak_akademia.myiigh.db.resultsetreader.ResultSetReader;
 import hu.ak_akademia.myiigh.db.sqlbuilder.SQLBuilder;
 
-public abstract class AbstractReturnerDataBaseDao<P, R> extends AbstractFundDataBaseDao<P>
-		implements ReturnerDataBaseDao<R> {
-	protected ResultSetReader<R> resultSetReader;
+public class ReturnerAbstractDao<R> extends ModifierAbstractDao implements ReturnerDataBaseDao<R> {
+	private ResultSetReader<R> resultSetReader;
 
-	{
-		errorMassege = "Error during query from database.";
-	}
-
-	public AbstractReturnerDataBaseDao(SQLBuilder sqlBuilder, ResultSetReader<R> resultSetReader) {
-		super(sqlBuilder);
-		this.resultSetReader = resultSetReader;
-	}
-
-	public AbstractReturnerDataBaseDao(SQLBuilder sqlBuilder, PreparedStatementWriter<P> preparedStatementWriter,
+	public ReturnerAbstractDao(SQLBuilder sqlBuilder, PreparedStatementWriter preparedStatementWriter,
 			ResultSetReader<R> resultSetReader) {
 		super(sqlBuilder, preparedStatementWriter);
 		this.resultSetReader = resultSetReader;
 	}
 
 	public List<R> retrieve() {
+		List<R> result = new ArrayList<>();
 		try (Connection connection = DriverManager.getConnection(Constants.getUrl(), Constants.getUser(),
 				Constants.getPassword())) {
 			String sql = sqlBuilder.build();
@@ -40,12 +31,14 @@ public abstract class AbstractReturnerDataBaseDao<P, R> extends AbstractFundData
 				if (preparedStatementWriter != null) {
 					preparedStatementWriter.write(preparedStatement);
 				}
-				ResultSet resSet = preparedStatement.executeQuery();
-				return resultSetReader.retrieve(resSet);
+				ResultSet resultSet = preparedStatement.executeQuery();
+				result = resultSetReader.retrieve(resultSet);
 			}
 		} catch (SQLException e) {
-			throw new IIGHRuntimeException(errorMassege, e);
+			errorMassege = "Hiba az adatbázisból lekérdezéskor.";
 		}
+		return result;
+
 	}
 
 }

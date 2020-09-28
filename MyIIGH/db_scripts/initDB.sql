@@ -20,12 +20,13 @@ CREATE TABLE roles (
 CREATE TABLE user_status (
 	user_status_id NUMERIC(20) NOT NULL,
 	status_name VARCHAR(15) NOT NULL,
+	status_display_name VARCHAR(30) NOT NULL,
 	CONSTRAINT user_status_pk PRIMARY KEY (user_status_id)
 	);
 
 CREATE TABLE users (
 	login_name VARCHAR(30) NOT NULL,
-	password_hash VARCHAR(64) NOT NULL,
+	password_hash VARCHAR(128) NOT NULL,
 	first_name VARCHAR(30) NOT NULL,
 	last_name VARCHAR(30) NOT NULL,
 	role_id NUMERIC(20) NOT NULL,
@@ -51,12 +52,14 @@ CREATE TABLE users (
 CREATE TABLE bank_account_status (
 	bank_account_status_id NUMERIC(20) NOT NULL,
 	status_name VARCHAR(15) NOT NULL,
+	status_display_name VARCHAR(30) NOT NULL,
 	CONSTRAINT bank_account_status_pk PRIMARY KEY (bank_account_status_id)
 	);
 
 CREATE TABLE bank_account_type (
 	bank_account_type_id NUMERIC(20) NOT NULL,
 	type_name VARCHAR(30) NOT NULL,
+	type_display_name VARCHAR(30) NOT NULL,
 	CONSTRAINT bank_account_type_pk PRIMARY KEY (bank_account_type_id)
 	);
 
@@ -81,7 +84,7 @@ CREATE TABLE transaction (
 	from_bank_account_number VARCHAR(34) NOT NULL,
 	to_bank_account_number VARCHAR(34) NOT NULL,
 	beneficiary_name VARCHAR(30) NOT NULL,
-	transaction_date TIMESTAMP NOT NULL,
+	transaction_date TIMESTAMP DEFAULT NOW() NOT NULL,
 	amount NUMERIC(20) NOT NULL,
 	transaction_comment VARCHAR(140),
 	CONSTRAINT transaction_pk PRIMARY KEY (transaction_id),
@@ -92,11 +95,11 @@ CREATE TABLE transaction (
 
 INSERT INTO roles (role_id, role_name, role_display_name) VALUES (1, 'admin', 'Adminisztrátor');
 INSERT INTO roles (role_id, role_name, role_display_name) VALUES (2, 'user', 'Ügyfél');
-INSERT INTO user_status (user_status_id, status_name) VALUES (1, 'pending');
-INSERT INTO user_status (user_status_id, status_name) VALUES (2, 'active');
-INSERT INTO user_status (user_status_id, status_name) VALUES (3, 'inactive');
-INSERT INTO bank_account_status (bank_account_status_id, status_name) VALUES (1, 'active');
-INSERT INTO bank_account_status (bank_account_status_id, status_name) VALUES (2, 'inactive');
+INSERT INTO user_status (user_status_id, status_name,status_display_name) VALUES (1, 'pending', 'Függőben levő aktiválás');
+INSERT INTO user_status (user_status_id, status_name,status_display_name) VALUES (2, 'active','Aktív');
+INSERT INTO user_status (user_status_id, status_name,status_display_name) VALUES (3, 'inactive', 'Inaktív' );
+INSERT INTO bank_account_status (bank_account_status_id, status_name,status_display_name) VALUES (1, 'active','Aktív');
+INSERT INTO bank_account_status (bank_account_status_id, status_name,status_display_name) VALUES (2, 'inactive','Zárolt');
 INSERT INTO bank_account_type (bank_account_type_id, type_name) VALUES (1, 'Lakossági folyószámla');
 INSERT INTO bank_account_type (bank_account_type_id, type_name) VALUES (2, 'Lakossági hitelszámla');
 COMMIT;
