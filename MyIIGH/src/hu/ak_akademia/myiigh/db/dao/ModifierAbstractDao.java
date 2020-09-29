@@ -5,10 +5,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import hu.ak_akademia.myiigh.Constants;
-import hu.ak_akademia.myiigh.IIGHRuntimeException;
 import hu.ak_akademia.myiigh.db.prepstatementwriter.PreparedStatementWriter;
 import hu.ak_akademia.myiigh.db.sqlbuilder.SQLBuilder;
+import hu.ak_akademia.myiigh.util.constants.Constants;
+import hu.ak_akademia.myiigh.util.exceptions.IIGHRuntimeException;
 
 public abstract class ModifierAbstractDao implements ModifierDataBaseDao {
 	protected SQLBuilder sqlBuilder;

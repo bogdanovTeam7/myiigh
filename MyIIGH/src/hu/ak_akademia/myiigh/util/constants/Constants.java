@@ -1,4 +1,4 @@
-package hu.ak_akademia.myiigh;
+package hu.ak_akademia.myiigh.util.constants;
 
 public class Constants {
 	private static final String URL = "jdbc:postgresql://localhost:5432/iigh";

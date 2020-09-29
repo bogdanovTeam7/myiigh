@@ -2,6 +2,15 @@ package hu.ak_akademia.myiigh.db.entity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
+
+import hu.ak_akademia.myiigh.db.dao.userstatus.GetUserStatusDao;
+import hu.ak_akademia.myiigh.db.prepstatementwriter.PreparedStatementWriter;
+import hu.ak_akademia.myiigh.db.prepstatementwriter.userstatus.GetUserStatusByIdPreparedStatementWriter;
+import hu.ak_akademia.myiigh.db.resultsetreader.ResultSetReader;
+import hu.ak_akademia.myiigh.db.resultsetreader.userstatus.GetUserStatusesResultSetReader;
+import hu.ak_akademia.myiigh.db.sqlbuilder.SQLBuilder;
+import hu.ak_akademia.myiigh.db.sqlbuilder.userstatus.GetUserStatusByStatusIdSQLBuilder;
 
 public class User {
 	private String loginName;
@@ -176,6 +185,15 @@ public class User {
 		public User build() {
 			return new User(this);
 		}
+	}
+
+	public UserStatus getUserStatus() {
+		SQLBuilder sqlBuilder = new GetUserStatusByStatusIdSQLBuilder();
+		PreparedStatementWriter preparedStatementWriter = new GetUserStatusByIdPreparedStatementWriter(userStatusId);
+		ResultSetReader<UserStatus> resultSetReader = new GetUserStatusesResultSetReader();
+		GetUserStatusDao dao = new GetUserStatusDao(sqlBuilder, preparedStatementWriter, resultSetReader);
+		List<UserStatus> userStatuses = dao.retrieve();
+		return userStatuses.get(0);
 	}
 
 	@Override

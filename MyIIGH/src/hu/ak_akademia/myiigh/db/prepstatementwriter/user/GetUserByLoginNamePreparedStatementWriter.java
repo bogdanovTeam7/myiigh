@@ -1,7 +1,9 @@
-package hu.ak_akademia.myiigh.db.prepstatementwriter;
+package hu.ak_akademia.myiigh.db.prepstatementwriter.user;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
+import hu.ak_akademia.myiigh.db.prepstatementwriter.PreparedStatementWriter;
 
 public class GetUserByLoginNamePreparedStatementWriter implements PreparedStatementWriter {
 

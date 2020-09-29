@@ -1,4 +1,4 @@
-package hu.ak_akademia.myiigh.db.resultsetreader;
+package hu.ak_akademia.myiigh.db.resultsetreader.user;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,9 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hu.ak_akademia.myiigh.db.entity.User;
-import hu.ak_akademia.myiigh.util.PasswordManager;
+import hu.ak_akademia.myiigh.db.resultsetreader.ResultSetReader;
+import hu.ak_akademia.myiigh.util.password.PasswordManager;
 
-public class GetUserByLoginNameResultSetReader implements ResultSetReader<User> {
+public class GetUsersResultSetReader implements ResultSetReader<User> {
 
 	@Override
 	public List<User> retrieve(ResultSet resultSet) throws SQLException {

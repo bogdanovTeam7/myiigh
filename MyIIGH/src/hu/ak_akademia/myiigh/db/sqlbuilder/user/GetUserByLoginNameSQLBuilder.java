@@ -1,4 +1,6 @@
-package hu.ak_akademia.myiigh.db.sqlbuilder;
+package hu.ak_akademia.myiigh.db.sqlbuilder.user;
+
+import hu.ak_akademia.myiigh.db.sqlbuilder.SQLBuilder;
 
 public class GetUserByLoginNameSQLBuilder implements SQLBuilder {
 

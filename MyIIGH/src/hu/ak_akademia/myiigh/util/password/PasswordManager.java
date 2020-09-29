@@ -1,10 +1,10 @@
-package hu.ak_akademia.myiigh.util;
+package hu.ak_akademia.myiigh.util.password;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import hu.ak_akademia.myiigh.IIGHRuntimeException;
+import hu.ak_akademia.myiigh.util.exceptions.IIGHRuntimeException;
 
 public class PasswordManager {
 

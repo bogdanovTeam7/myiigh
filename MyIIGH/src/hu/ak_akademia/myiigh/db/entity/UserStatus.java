@@ -55,6 +55,7 @@ public class UserStatus {
 			return new UserStatus(this);
 		}
 	}
+	
 
 	@Override
 	public String toString() {

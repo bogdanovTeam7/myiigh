@@ -1,4 +1,4 @@
-package hu.ak_akademia.myiigh;
+package hu.ak_akademia.myiigh.util.exceptions;
 
 public class IIGHRuntimeException extends RuntimeException {
 

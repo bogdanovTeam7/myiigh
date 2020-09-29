@@ -4,6 +4,14 @@ body {
 	background-color: powderblue;
 }
 
+* {
+	font-family: "Bookman Old Style";
+}
+
 .btn-mylg {
 	width: 40%;
+}
+
+.myError {
+	color: red;
 }

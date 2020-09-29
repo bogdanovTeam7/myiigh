@@ -8,10 +8,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import hu.ak_akademia.myiigh.Constants;
 import hu.ak_akademia.myiigh.db.prepstatementwriter.PreparedStatementWriter;
 import hu.ak_akademia.myiigh.db.resultsetreader.ResultSetReader;
 import hu.ak_akademia.myiigh.db.sqlbuilder.SQLBuilder;
+import hu.ak_akademia.myiigh.util.constants.Constants;
 
 public class ReturnerAbstractDao<R> extends ModifierAbstractDao implements ReturnerDataBaseDao<R> {
 	private ResultSetReader<R> resultSetReader;
