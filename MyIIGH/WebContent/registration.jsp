@@ -22,34 +22,116 @@
 		<img src="images/logo.jpg" alt="bank logójá"
 			class="img-fluid rounded img-thumbnail float-left m-4" width="250">
 	</div>
-	<%!String massege = "";%>
+	<br>
+	<h5>
+		<u>Regisztráció fontos tudnivalók:</u>
+	</h5>
+	<%!String massege = "1. *-gal jelöltek kötelező beadni <br> 2. jelszó minimum 8 betűból állhat.";%>
+
 	<%
 		if (request.getAttribute("errorLogin") != null) {
 			massege = (String) request.getAttribute("errorLogin") + ", probáljon újra!";
 		}
 	%>
-	<h4 class="myError">
-		<%=massege%>
-	</h4>
+	<h6 class="myInfo">
+		<%
+			out.print(massege);
+		%>
+	</h6>
 	<br clear="all">
 	<div class="container-xl">
-		<form action="login" class="was-validated" method="post">
-			<div class="form-group">
-				<label for="loginName">Felhasználó név:</label> <input type="text"
-					class="form-control btn-mylg" id="loginName"
-					placeholder="Példa Tamás" name="loginName" required>
-				<div class="valid-feedback">Rendben van.</div>
-				<div class="invalid-feedback">Ez a mező nem lehet üres.</div>
+		<form>
+			<div class="form-row">
+				<div class="form-group col-md-8">
+					<label for="lodinName">Felhasználó név*</label> <input type="text"
+						class="form-control" id="lodinName" placeholder="példaElek">
+					<small id="passwordHelpBlock" class="form-text text-muted">
+						A felhasználónévnek egyedinek kell lennie; ha foglalt nevet
+						választ, a rendszer értesíti róla. Kérjük, ügyeljen arra, hogy
+						felhasználóneve ne tartalmazzon szóközt, ékezetes betűt vagy
+						különleges karaktert (pl. csillag, plusz jel). A rendszer
+						megkülönbözteti a kis- és nagybetűket. </small>
+				</div>
+				<div class="form-group col-md-4">
+					<label for="userRole">Szerepkör*</label> <select id="userRole"
+						class="form-control">
+						<option selected id="0">Válasson...</option>
+						<option id="1">Adminisztrátor</option>
+						<option id="2">Ügyfél</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label for="password">Jelszó*</label> <input type="password"
+						class="form-control" id="password" placeholder="********">
+					<small id="passwordHelpBlock" class="form-text text-muted">
+						A jelszó csak betűkből és számokból állhat, legalább 8 karakter
+						hosszúságú legyen, legalább egy számot tartalmaznia kell. A
+						rendszer megkülönbözteti a kis- és nagybetűket. </small>
+				</div>
+				<div class="form-group col-md-6">
+					<label for="confirmationPassword">Jelszó újra*</label> <input
+						type="password" class="form-control" id="confirmationPassword">
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label for="firstName">Vezeték név*</label> <input type="text"
+						class="form-control" id="firstName" placeholder="Példa">
+				</div>
+				<div class="form-group col-md-6">
+					<label for="firstName">Kereszt név*</label> <input type="text"
+						class="form-control" id="firstName" placeholder="Elek">
+				</div>
 			</div>
 			<div class="form-group">
-				<label for="password">Jelszó:</label> <input type="password"
-					class="form-control btn-mylg" id="password" placeholder="******"
-					name="password" required>
-				<div class="valid-feedback">Rendben van.</div>
-				<div class="invalid-feedback">Ez a mező nem lehet üres.</div>
+				<label for="address">Lakcím*</label> <input type="text"
+					class="form-control" id="address"
+					placeholder="1010 Budapest Fő utca 1. 1.">
 			</div>
-			<button type="submit" class="btn btn-primary">Bejelentkezés</button>
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label for="email">Email*</label> <input type="email"
+						class="form-control" id="email" placeholder="példaElek@gmail.com">
+				</div>
+				<div class="form-group col-md-4">
+					<label for="phone">Telefonszám*</label> <input id="text"
+						class="form-control" id="phone" placeholder="36 20 123 4567">
+				</div>
+				<div class="form-group col-md-2">
+					<label for="dateOfBirth">Születési dátum</label> <input type="date"
+						class="form-control" id="dateOfBirth">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" id="newsLetter">
+					<label class="form-check-label" for="newsLetter">
+						Hírleveleket kérek</label>
+				</div>
+			</div>
+			<button type="submit" class="btn btn-primary">Regisztráció</button>
 		</form>
+
+		<br clear="all">
+		<h5 class="text-center">Vagy valassza az alabbiek közül:</h5>
+
+		<div>
+			<form action="login" method="get">
+				<div>
+					<button type="submit" name="action" value="login"
+						class="btn btn-primary  btn-lg btn-mylg m-4">Belépés</button>
+				</div>
+			</form>
+			<form action="index" method="get">
+				<div>
+					<button type="submit" name="action" value="index"
+						class="btn btn-primary btn-lg  btn-mylg m-4">Nyitóoldal</button>
+				</div>
+			</form>
+		</div>
+
 
 
 	</div>

@@ -15,3 +15,7 @@ body {
 .myError {
 	color: red;
 }
+
+.myInfo {
+	color: darkblue;
+}

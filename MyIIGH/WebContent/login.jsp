@@ -49,7 +49,23 @@
 			</div>
 			<button type="submit" class="btn btn-primary">Bejelentkezés</button>
 		</form>
+		<br clear="all">
+		<h5 class="text-center">Vagy valassza az alabbiek közül:</h5>
 
+		<div>
+			<form action="registration" method="get">
+				<div>
+					<button type="submit" name="action" value="registration"
+						class="btn btn-primary  btn-lg btn-mylg m-4">Regisztráció</button>
+				</div>
+			</form>
+			<form action="index" method="get">
+				<div>
+					<button type="submit" name="action" value="index"
+						class="btn btn-primary btn-lg  btn-mylg m-4">Nyitóoldal</button>
+				</div>
+			</form>
+		</div>
 
 	</div>
 
