@@ -9,7 +9,6 @@ import java.util.List;
 
 import hu.ak_akademia.myiigh.db.entity.User;
 import hu.ak_akademia.myiigh.db.resultsetreader.ResultSetReader;
-import hu.ak_akademia.myiigh.util.password.PasswordManager;
 
 public class GetUsersResultSetReader implements ResultSetReader<User> {
 
@@ -18,7 +17,7 @@ public class GetUsersResultSetReader implements ResultSetReader<User> {
 		List<User> users = new ArrayList<>();
 		while (resultSet.next()) {
 			String loginName = resultSet.getString("login_name");
-			String passwordHash = new PasswordManager().encrypt(resultSet.getString("password"));
+			String passwordHash = resultSet.getString("password_hash");
 			String firstName = resultSet.getString("first_name");
 			String lastName = resultSet.getString("last_name");
 			Long roleId = resultSet.getLong("role_id");

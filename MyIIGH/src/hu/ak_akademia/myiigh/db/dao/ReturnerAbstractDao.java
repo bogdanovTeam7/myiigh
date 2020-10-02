@@ -23,6 +23,11 @@ public class ReturnerAbstractDao<R> extends ModifierAbstractDao implements Retur
 	}
 
 	public List<R> retrieve() {
+		try {
+			Class.forName("org.postgresql.Driver");
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		}
 		List<R> result = new ArrayList<>();
 		try (Connection connection = DriverManager.getConnection(Constants.getUrl(), Constants.getUser(),
 				Constants.getPassword())) {

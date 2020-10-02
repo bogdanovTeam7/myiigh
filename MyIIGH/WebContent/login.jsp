@@ -23,26 +23,33 @@
 			class="img-fluid rounded img-thumbnail float-left m-4" width="250">
 	</div>
 	<%!String massege = "";%>
+	<%!String successMassege = "";%>
 	<%
 		if (request.getAttribute("errorLogin") != null) {
 			massege = (String) request.getAttribute("errorLogin") + ", probáljon újra!";
+		}
+		if (Boolean.TRUE.equals(request.getAttribute("successfulRegistration"))) {
+			successMassege = "Sikeres regisztráció, aktiválás után itt bejelentkezhet";
 		}
 	%>
 	<h4 class="myError">
 		<%=massege%>
 	</h4>
+	<h4 class="mySuccess">
+		<%=successMassege%>
+	</h4>
 	<div class="container-xl">
 		<form action="login" class="was-validated" method="post">
 			<div class="form-group">
-				<label for="loginName">Felhasználó név:</label> <input type="text"
+				<label for="loginName">Felhasználónév:</label> <input type="text"
 					class="form-control btn-mylg" id="loginName"
-					placeholder="Példa Tamás" name="loginName" required>
+					placeholder="1példaElek" name="loginName" required>
 				<div class="valid-feedback">Rendben van.</div>
 				<div class="invalid-feedback">Ez a mező nem lehet üres.</div>
 			</div>
 			<div class="form-group">
 				<label for="password">Jelszó:</label> <input type="password"
-					class="form-control btn-mylg" id="password" placeholder="******"
+					class="form-control btn-mylg" id="password" placeholder="********"
 					name="password" required>
 				<div class="valid-feedback">Rendben van.</div>
 				<div class="invalid-feedback">Ez a mező nem lehet üres.</div>
@@ -50,7 +57,7 @@
 			<button type="submit" class="btn btn-primary">Bejelentkezés</button>
 		</form>
 		<br clear="all">
-		<h5 class="text-center">Vagy valassza az alabbiek közül:</h5>
+		<h5 class="text-center">Vagy válassza az alábbiak közül:</h5>
 
 		<div>
 			<form action="registration" method="get">

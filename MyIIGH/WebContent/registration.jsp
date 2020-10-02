@@ -1,3 +1,7 @@
+<%@page import="java.time.LocalDate"%>
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.Map"%>
 <%@page
 	import="javax.security.auth.message.callback.PrivateKeyCallback.Request"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -26,11 +30,20 @@
 	<h5>
 		<u>Regisztráció fontos tudnivalók:</u>
 	</h5>
-	<%!String massege = "1. *-gal jelöltek kötelező beadni <br> 2. jelszó minimum 8 betűból állhat.";%>
+	<%!String massege = "> *-gal jelöltek kötelező beadni <br>"
+			+ "> felhasználónév és jelszó legalabb 8 és legfejebb 30 betűból állhat";%>
+	<%!String errorMassege;%>
 
 	<%
-		if (request.getAttribute("errorLogin") != null) {
-			massege = (String) request.getAttribute("errorLogin") + ", probáljon újra!";
+		Object errorsObj = request.getAttribute("errors");
+
+		Map<String, String> errors = new HashMap<>();
+		if (errorsObj != null && errorsObj instanceof HashMap) {
+			errors = (HashMap<String, String>) errorsObj;
+		}
+		errorMassege = "";
+		for (String error : errors.values()) {
+			errorMassege += "<br>" + (String) error;
 		}
 	%>
 	<h6 class="myInfo">
@@ -38,84 +51,104 @@
 			out.print(massege);
 		%>
 	</h6>
+
+	<h6 class="myError">
+		<%
+			out.print(errorMassege);
+		%>
+	</h6>
 	<br clear="all">
 	<div class="container-xl">
-		<form>
+		<form action="registration" method="post">
 			<div class="form-row">
 				<div class="form-group col-md-8">
-					<label for="lodinName">Felhasználó név*</label> <input type="text"
-						class="form-control" id="lodinName" placeholder="példaElek">
-					<small id="passwordHelpBlock" class="form-text text-muted">
-						A felhasználónévnek egyedinek kell lennie; ha foglalt nevet
-						választ, a rendszer értesíti róla. Kérjük, ügyeljen arra, hogy
+					<label for="loginName">Felhasználónév*</label> <input type="text"
+						class="form-control" name="loginName" id="loginName"
+						placeholder="1példaElek" value="${param.loginName}"> <small
+						id="passwordHelpBlock" class="form-text text-muted"> A
+						felhasználónévnek egyedinek kell lennie; ha foglalt nevet választ,
+						a rendszer értesíti róla. Kérjük, ügyeljen arra, hogy
 						felhasználóneve ne tartalmazzon szóközt, ékezetes betűt vagy
 						különleges karaktert (pl. csillag, plusz jel). A rendszer
 						megkülönbözteti a kis- és nagybetűket. </small>
 				</div>
 				<div class="form-group col-md-4">
-					<label for="userRole">Szerepkör*</label> <select id="userRole"
-						class="form-control">
-						<option selected id="0">Válasson...</option>
-						<option id="1">Adminisztrátor</option>
-						<option id="2">Ügyfél</option>
+					<label for="userRole">Szerepkör*</label> <select name="userRole"
+						id="userRole" class="form-control">
+						<option selected value="0">Válasson...</option>
+						<option value="1">Adminisztrátor</option>
+						<option value="2">Ügyfél</option>
 					</select>
 				</div>
 			</div>
 			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label for="password">Jelszó*</label> <input type="password"
-						class="form-control" id="password" placeholder="********">
-					<small id="passwordHelpBlock" class="form-text text-muted">
-						A jelszó csak betűkből és számokból állhat, legalább 8 karakter
-						hosszúságú legyen, legalább egy számot tartalmaznia kell. A
-						rendszer megkülönbözteti a kis- és nagybetűket. </small>
+						class="form-control" name="password" id="password"
+						placeholder="********"> <small id="passwordHelpBlock"
+						class="form-text text-muted"> A jelszó csak betűkből és
+						számokból állhat, legalább 8 karakter hosszúságú legyen, legalább
+						egy számot tartalmaznia kell. A rendszer megkülönbözteti a kis- és
+						nagybetűket. </small>
 				</div>
 				<div class="form-group col-md-6">
 					<label for="confirmationPassword">Jelszó újra*</label> <input
-						type="password" class="form-control" id="confirmationPassword">
+						type="password" class="form-control" name="confirmationPassword"
+						id="confirmationPassword">
 				</div>
 			</div>
 			<div class="form-row">
 				<div class="form-group col-md-6">
-					<label for="firstName">Vezeték név*</label> <input type="text"
-						class="form-control" id="firstName" placeholder="Példa">
+					<label for="lastName">Vezetéknév*</label> <input type="text"
+						class="form-control" name="lastName" id="lastName"
+						placeholder="Példa" value="${param.lastName }">
 				</div>
 				<div class="form-group col-md-6">
-					<label for="firstName">Kereszt név*</label> <input type="text"
-						class="form-control" id="firstName" placeholder="Elek">
+					<label for="firstName">Keresztnév*</label> <input type="text"
+						class="form-control" name="firstName" id="firstName"
+						placeholder="Elek" value="${param.firstName }">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="address">Lakcím*</label> <input type="text"
-					class="form-control" id="address"
-					placeholder="1010 Budapest Fő utca 1. 1.">
+				<label for="address">Levelezési cím*</label> <input type="text"
+					class="form-control" name="address" id="address"
+					placeholder="1010 Budapest Fő utca 1. 1." value="${param.address }">
 			</div>
 			<div class="form-row">
-				<div class="form-group col-md-6">
+				<div class="form-group col-md-5">
 					<label for="email">Email*</label> <input type="email"
-						class="form-control" id="email" placeholder="példaElek@gmail.com">
+						class="form-control" name="email" id="email"
+						placeholder="pelda.elek@gmail.com" value="${param.email }">
 				</div>
 				<div class="form-group col-md-4">
 					<label for="phone">Telefonszám*</label> <input id="text"
-						class="form-control" id="phone" placeholder="36 20 123 4567">
+						class="form-control" name="phone" id="phone"
+						placeholder="36 20 123 4567" value="${param.phone }">
 				</div>
-				<div class="form-group col-md-2">
+				<div class="form-group col-md-3">
+					<%!String birthday = "";%>
+					<%
+						if (request.getParameter("dateOfBirth") != null) {
+							birthday = request.getParameter("dateOfBirth");
+						}
+					%>
 					<label for="dateOfBirth">Születési dátum</label> <input type="date"
-						class="form-control" id="dateOfBirth">
+						class="form-control" name="dateOfBirth" id="dateOfBirth"
+						value=<%=birthday%>>
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="form-check">
-					<input class="form-check-input" type="checkbox" id="newsLetter">
-					<label class="form-check-label" for="newsLetter">
-						Hírleveleket kérek</label>
+					<input class="form-check-input" type="checkbox" name="newsletter"
+						id="newsletter"> <label class="form-check-label"
+						for="newsletter"> Hírleveleket kérek</label>
 				</div>
 			</div>
 			<button type="submit" class="btn btn-primary">Regisztráció</button>
 		</form>
 
 		<br clear="all">
-		<h5 class="text-center">Vagy valassza az alabbiek közül:</h5>
+		<h5 class="text-center">Vagy válassza az alábbiak közül:</h5>
 
 		<div>
 			<form action="login" method="get">
@@ -131,9 +164,6 @@
 				</div>
 			</form>
 		</div>
-
-
-
 	</div>
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

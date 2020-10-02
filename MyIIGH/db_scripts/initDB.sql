@@ -100,6 +100,6 @@ INSERT INTO user_status (user_status_id, status_name,status_display_name) VALUES
 INSERT INTO user_status (user_status_id, status_name,status_display_name) VALUES (3, 'inactive', 'Inaktív' );
 INSERT INTO bank_account_status (bank_account_status_id, status_name,status_display_name) VALUES (1, 'active','Aktív');
 INSERT INTO bank_account_status (bank_account_status_id, status_name,status_display_name) VALUES (2, 'inactive','Zárolt');
-INSERT INTO bank_account_type (bank_account_type_id, type_name) VALUES (1, 'Lakossági folyószámla');
-INSERT INTO bank_account_type (bank_account_type_id, type_name) VALUES (2, 'Lakossági hitelszámla');
+INSERT INTO bank_account_type (bank_account_type_id, type_name,type_display_name) VALUES (1,'privateDeposit', 'Lakossági folyószámla');
+INSERT INTO bank_account_type (bank_account_type_id, type_name,type_display_name) VALUES (2,'privateCredit', 'Lakossági hitelszámla');
 COMMIT;

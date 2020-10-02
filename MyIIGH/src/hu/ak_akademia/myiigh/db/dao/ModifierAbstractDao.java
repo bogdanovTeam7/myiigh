@@ -21,13 +21,16 @@ public abstract class ModifierAbstractDao implements ModifierDataBaseDao {
 	}
 
 	public void create() {
+		try {
+			Class.forName("org.postgresql.Driver");
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		}
 		try (Connection connection = DriverManager.getConnection(Constants.getUrl(), Constants.getUser(),
 				Constants.getPassword())) {
 			String sql = sqlBuilder.build();
 			try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-				if (preparedStatementWriter != null) {
-					preparedStatementWriter.write(preparedStatement);
-				}
+				preparedStatementWriter.write(preparedStatement);
 				preparedStatement.executeUpdate();
 			}
 		} catch (SQLException e) {

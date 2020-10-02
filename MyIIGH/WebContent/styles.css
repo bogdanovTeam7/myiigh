@@ -19,3 +19,7 @@ body {
 .myInfo {
 	color: darkblue;
 }
+
+.mySuccess {
+	color: green;
+}
